@@ -28,7 +28,6 @@ static void init() {
         .load = main_window_load,
         .unload = main_window_unload
     });
-
     // Show the Window on the watch, with animated=true
     window_stack_push(s_main_window, true);
     game_init();
