@@ -22,11 +22,11 @@ static void move_player(Player* p, double by_x, double by_y) {
     p->pos.x += by_x;
     p->pos.y += by_y;
 }
-/*
+
 static void clear_screen(GContext* ctx) {
-    graphics_context_set_fill_color(ctx, GColorClear)
-    graphics_draw_rect(ctx, GRect rect)
-}*/
+    graphics_context_set_fill_color(ctx, GColorClear);
+    graphics_draw_rect(ctx, layer_get_bounds(window_layer));
+}
 
 static void player_update(Player* p) {
     move_player(player, p->vel.x, p->vel.y);
@@ -50,6 +50,8 @@ void game_update() {
 }
 
 void draw_player(Player* p, Layer* layer, GContext* ctx) {
+    //clear_screen(ctx);
+    psleep(DT_MS);
     graphics_fill_circle(ctx, GPoint(p->pos.x, p->pos.y),
                          CIRCLE_RADIUS); 
 }
