@@ -13,8 +13,6 @@ static void compass_heading_handler(CompassHeadingData heading_data) {
 static void main_window_load(Window *window) {
     window_layer = window_get_root_layer(window);
     layer_set_update_proc(window_layer, game_draw);
-
-    
 }
 
 static void main_window_unload(Window *window) {
