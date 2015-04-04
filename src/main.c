@@ -20,7 +20,7 @@ static void main_window_unload(Window *window) {
 }
 
 
-static void init() {
+static void init(void) {
     s_main_window = window_create();
     window_set_window_handlers(s_main_window, (WindowHandlers) {
         .load = main_window_load,
@@ -28,7 +28,7 @@ static void init() {
     });
     // Show the Window on the watch, with animated=true
     window_stack_push(s_main_window, true);
-    game_init();
+    game_init(window_layer, s_main_window);
 }
 
 

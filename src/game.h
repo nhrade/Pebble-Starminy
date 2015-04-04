@@ -15,9 +15,9 @@ typedef struct Player_S {
 
 static Player* player;
 
-void game_init();
+void game_init(Layer* layer, Window* window);
 void game_update();
 void game_draw(Layer* layer, GContext* ctx);
-void game_cleanup();
+void game_cleanup(void);
 
 #endif

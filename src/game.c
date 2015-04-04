@@ -5,9 +5,9 @@
 #define CIRCLE_RADIUS 7
 #define INITIAL_POINT (Vector2) {50.0, 50.0}
 
-Layer* window_layer;
-
-static void create_player() {
+static Layer* window_layer;
+static Window* main_window;
+static void create_player(void) {
     if(player == NULL) {
         player = malloc(sizeof(Player));
     } 
@@ -22,6 +22,11 @@ static void move_player(Player* p, double by_x, double by_y) {
     p->pos.x += by_x;
     p->pos.y += by_y;
 }
+/*
+static void clear_screen(GContext* ctx) {
+    graphics_context_set_fill_color(ctx, GColorClear)
+    graphics_draw_rect(ctx, GRect rect)
+}*/
 
 static void player_update(Player* p) {
     move_player(player, p->vel.x, p->vel.y);
@@ -30,8 +35,9 @@ static void player_update(Player* p) {
 /*
 * Initializes game
 */
-void game_init(Layer* layer) {
+void game_init(Layer* layer, Window* window) {
     window_layer = layer;
+    main_window = window;
     create_player();
     app_timer_register(DT_MS, game_update, NULL);
 }
@@ -49,9 +55,11 @@ void draw_player(Player* p, Layer* layer, GContext* ctx) {
 }
 
 void game_draw(Layer* layer, GContext* ctx) {
+    window_set_background_color(main_window, GColorClear);
     draw_player(player, layer, ctx);
+    
 }
 
-void game_cleanup() {
+void game_cleanup(void) {
    free(player);
 }
