@@ -9,13 +9,13 @@ typedef struct Vector2_S {
     
 typedef struct Player_S {
     Vector2 pos, vel;
-    size_t score;
+    size_t score, lives;
 } Player;
 
 
 static Player* player;
 
-bool game_init();
+void game_init();
 void game_update();
 void game_draw(Layer* layer, GContext* ctx);
 void game_cleanup();
