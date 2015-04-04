@@ -3,8 +3,6 @@
 #include <pebble.h>
 
 
-static Player* player;
-
 typedef struct Vector2_S {
    double x, y;  
 } Vector2;
@@ -15,9 +13,11 @@ typedef struct Player_S {
 } Player;
 
 
-void game_init();
+static Player* player;
+
+bool game_init();
 void game_update();
-void game_draw(GContext* ctx, Layer* layer);
-void cleanup();
+void game_draw(Layer* layer, GContext* ctx);
+void game_cleanup();
 
 #endif
