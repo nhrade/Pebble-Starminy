@@ -36,10 +36,10 @@ void game_update() {
 }
 
 void draw_player(Player* p, Layer* layer, GContext* ctx) {
-    graphics_context_set_fill_color(ctx, GColorWhite);
+    
     graphics_fill_circle(ctx, GPoint(p->pos.x, p->pos.y),
                          CIRCLE_RADIUS);
-    graphics_context_set_fill_color(ctx, GColorBlack);
+    
 }
 
 void game_draw(Layer* layer, GContext* ctx) {
