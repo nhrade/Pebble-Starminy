@@ -7,7 +7,13 @@
     "longName": "Pebbles",
     "projectType": "native",
     "resources": {
-        "media": []
+        "media": [
+            {
+                "file": "images/life.png",
+                "name": "LIFE_SCORE_IMAGE",
+                "type": "png"
+            }
+        ]
     },
     "sdkVersion": "2",
     "shortName": "Pebbles",
