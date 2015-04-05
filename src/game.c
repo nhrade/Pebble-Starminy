@@ -25,7 +25,7 @@ static void move_player(Player* p, double by_x, double by_y) {
 
 static void clear_screen(GContext* ctx) {
     graphics_context_set_fill_color(ctx, GColorClear);
-    graphics_draw_rect(ctx, layer_get_bounds(window_layer));
+    graphics_fill_rect(ctx, layer_get_bounds(window_layer),0,0);
 }
 
 static void player_update(Player* p) {
@@ -38,6 +38,7 @@ static void player_update(Player* p) {
 void game_init(Layer* layer, Window* window) {
     window_layer = layer;
     main_window = window;
+		window_set_background_color(main_window, GColorClear);
     create_player();
     app_timer_register(DT_MS, game_update, NULL);
 }
@@ -52,14 +53,15 @@ void game_update() {
 void draw_player(Player* p, Layer* layer, GContext* ctx) {
     //clear_screen(ctx);
     psleep(DT_MS);
+	
+    graphics_context_set_fill_color(ctx, GColorBlack);
     graphics_fill_circle(ctx, GPoint(p->pos.x, p->pos.y),
                          CIRCLE_RADIUS); 
 }
 
 void game_draw(Layer* layer, GContext* ctx) {
-    window_set_background_color(main_window, GColorClear);
-    draw_player(player, layer, ctx);
-    
+	  clear_screen(ctx);  	
+		draw_player(player, layer, ctx);	
 }
 
 void game_cleanup(void) {
