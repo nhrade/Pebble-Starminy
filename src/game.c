@@ -1,21 +1,24 @@
 #include <pebble.h>
 #include <stdio.h>
 #include "game.h"
+#include "mine.h"
 #include "accelerometer_manager.h"
 #include <math.h>
 #define DT_MS 50
 #define ACCEL_CONSTANT 0.01
 #define V_MAX 2
+#define MAX_MINES 6
 #define MAX_LIVES 3
 #define CIRCLE_RADIUS 7
 #define INITIAL_POINT (Vector2) {layer_get_bounds(window_layer).size.w/2, \
     layer_get_bounds(window_layer).size.h/2}
 
 
-static Layer* window_layer;
-static Window* main_window;
 static GBitmap* heart_image;
+static Player* player;
 static BitmapLayer* heart_layers[MAX_LIVES];
+static GBitmap* mine_image;
+static Mine mines[6];
 
 static double get_mag(Vector2 v){
 	double mag = sqrt(v.x*v.x+v.y*v.y);
@@ -67,8 +70,12 @@ void game_init(Layer* layer, Window* window) {
     
     if((heart_image = gbitmap_create_with_resource(
         RESOURCE_ID_LIFE_SCORE_IMAGE)) == NULL) {
-        APP_LOG(APP_LOG_LEVEL_ERROR, "Couldn't load heart image");
+        APP_LOG(APP_LOG_LEVEL_ERROR, "Couldn't load heart image!");
     } 
+    if((mine_image = gbitmap_create_with_resource(RESOURCE_ID_MINE_IMAGE)) == NULL) {
+        APP_LOG(APP_LOG_LEVEL_ERROR, "Couldn't load mine image!");    
+    }
+    
     create_player();
     for(int i = 0; i < MAX_LIVES; i++) {
         heart_layers[i] = bitmap_layer_create(GRect(12 * i, 0, 17, 17));
