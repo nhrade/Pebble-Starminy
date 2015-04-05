@@ -4,11 +4,11 @@
 #include "accelerometer_manager.h"
 #include <math.h>
 #define DT_MS 50
-#define ACCEL_CONSTANT 0.0001
+#define ACCEL_CONSTANT 0.01
 #define V_MAX 2
 #define MAX_LIVES 3
 #define CIRCLE_RADIUS 7
-    #define INITIAL_POINT (Vector2) {layer_get_bounds(window_layer).size.w/2, \
+#define INITIAL_POINT (Vector2) {layer_get_bounds(window_layer).size.w/2, \
     layer_get_bounds(window_layer).size.h/2}
 
 
@@ -36,21 +36,11 @@ static void create_player(void) {
     player->lives = MAX_LIVES;
 }
 
-static void accelerate_player(Player* p, double by_x, double by_y) {
-    double mag = get_mag(p->acc);  
-	  p->vel.x += by_x/mag;
-    p->vel.y += by_y/mag;
-		p->acc = (Vector2) {0.0,0.0};
-		double v_mag = get_mag(p->vel);
-	  Vector2 v_normalized = (Vector2) {p->vel.x/v_mag, p->vel.y/v_mag};
-		if(v_mag>V_MAX){
-				p->vel = (Vector2) {v_normalized.x*V_MAX,v_normalized.x*V_MAX};
-		}
-}
-
 static void move_player(Player* p, double by_x, double by_y) {
     p->pos.x += by_x;
     p->pos.y += by_y;
+    Vector2 v_slowed = (Vector2) {p->vel.x*p->slowdown_speed, p->vel.y*p->slowdown_speed};
+    p->vel = v_slowed;
 }
 
 static void clear_screen(GContext* ctx) {
@@ -64,8 +54,6 @@ static void apply_change(Player* p, AccelData data) {
 }
 
 static void player_update(Player* p) {
-    // accelerate_player(player, p->acc.x, p->acc.y);
-    
     move_player(player, p->vel.x, p->vel.y);
 }
 
