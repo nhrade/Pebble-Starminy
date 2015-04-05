@@ -1,5 +1,5 @@
 #include <pebble.h>
-#include "acceleration.h"
+
 #include "game.h"
 
 static Window *s_main_window;

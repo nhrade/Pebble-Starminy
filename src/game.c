@@ -1,10 +1,14 @@
 #include <pebble.h>
+#include <stdio.h>
 #include "game.h"
+#include "accelerometer_manager.h"
 #include <math.h>
 #define DT_MS 50
 #define V_MAX 5
 #define CIRCLE_RADIUS 7
-#define INITIAL_POINT (Vector2) {50.0, 50.0}
+    #define INITIAL_POINT (Vector2) {layer_get_bounds(window_layer).size.w/2, \
+    layer_get_bounds(window_layer).size.h/2}
+
 
 static Layer* window_layer;
 static Window* main_window;
@@ -20,7 +24,7 @@ static void create_player(void) {
     } 
     
     player->pos = INITIAL_POINT;
-    player->vel = (Vector2) {0.0, 0.0};
+    player->vel = (Vector2) {1.0, 1.0};
     player->acc = (Vector2) {0.0,0.0};
 	player->slowdown_speed = 0.78;
     player->score = 0;
@@ -39,6 +43,7 @@ static void accelerate_player(Player* p, double by_x, double by_y) {
 				p->vel = (Vector2) {v_normalized.x*V_MAX,v_normalized.x*V_MAX};
 		}
 }
+
 
 static void move_player(Player* p, double by_x, double by_y) {
     p->pos.x += by_x;
@@ -61,9 +66,10 @@ static void player_update(Player* p) {
 void game_init(Layer* layer, Window* window) {
     window_layer = layer;
     main_window = window;
-		window_set_background_color(main_window, GColorClear);
+	window_set_background_color(main_window, GColorClear);
     create_player();
     app_timer_register(DT_MS, game_update, NULL);
+    accel_data_service_subscribe(0, NULL);
 }
 
 
@@ -71,6 +77,10 @@ void game_update() {
     player_update(player);
     layer_mark_dirty(window_layer);
     app_timer_register(DT_MS, game_update, NULL);
+    AccelData* data = get_accel_data();
+    APP_LOG(APP_LOG_LEVEL_INFO, "X: %d Y: %d Z: %d", data->x, data->y, data->z);
+    
+    free(data);
 }
 
 void draw_player(Player* p, Layer* layer, GContext* ctx) {
@@ -87,4 +97,5 @@ void game_draw(Layer* layer, GContext* ctx) {
 
 void game_cleanup(void) {
    free(player);
+    accel_data_service_unsubscribe();
 }
