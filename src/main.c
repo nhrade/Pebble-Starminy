@@ -26,6 +26,7 @@ static void init(void) {
 }
 
 int main(void) {
+		srand (time(NULL));
     init();
     app_event_loop();
     game_cleanup();
