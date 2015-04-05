@@ -20,7 +20,7 @@ static void create_player(void) {
     } 
     
     player->pos = INITIAL_POINT;
-    player->vel = (Vector2) {1.0, 1.0};
+    player->vel = (Vector2) {0.0, 0.0};
     player->acc = (Vector2) {0.0,0.0};
 	player->slowdown_speed = 0.78;
     player->score = 0;
