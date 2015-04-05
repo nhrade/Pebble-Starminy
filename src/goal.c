@@ -1,4 +1,4 @@
-#include <pebble.h>
+/*#include <pebble.h>
 #include "goal.h"	
 #include "game.h"	
 
@@ -80,4 +80,4 @@ public Vector2 get_next_pos(Goal* g){
 	g->rect->pos = (Vector2) {_a_rects[index].pos.x+_x,_a_rects[index].pos.y+_y};
 	// INCREASE POINTS HERE!
 	return (Vector2) {_a_rects[index].pos.x+_x,_a_rects[index].pos.y+_y};
-}
+}*/

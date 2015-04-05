@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 		
 typedef struct Rect_S{
 		Vector2 pos;
@@ -10,4 +10,4 @@ typedef struct Goal_S {
 		bool active;
 		bool has_next;
 		Goal next;
-} Goal;
+} Goal;*/

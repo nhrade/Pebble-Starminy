@@ -9,13 +9,13 @@
     "resources": {
         "media": [
             {
-                "file": "images/mine.png",
-                "name": "MINE_IMAGE",
+                "file": "images/life.png",
+                "name": "LIFE_SCORE_IMAGE",
                 "type": "png"
             },
             {
-                "file": "images/life.png",
-                "name": "LIFE_SCORE_IMAGE",
+                "file": "images/mine.png",
+                "name": "MINE_IMAGE",
                 "type": "png"
             }
         ]
