@@ -8,7 +8,8 @@ typedef struct Vector2_S {
 } Vector2;
     
 typedef struct Player_S {
-    Vector2 pos, vel;
+    Vector2 pos, vel, acc;
+    double slowdown_speed;
     size_t score, lives;
 } Player;
 
