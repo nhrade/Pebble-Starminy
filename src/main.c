@@ -3,6 +3,7 @@
 #include "game.h"
 
 static Window *s_main_window;
+static Layer* window_layer;
 
 static void main_window_load(Window *window) {
     window_layer = window_get_root_layer(window);
@@ -25,7 +26,7 @@ static void init(void) {
 }
 
 int main(void) {
-    srand(time(NULL));
+		srand (time(NULL));
     init();
     app_event_loop();
     game_cleanup();

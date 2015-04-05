@@ -1,12 +1,7 @@
 #ifndef GAME_H_
 #define GAME_H_
 #include <pebble.h>
-#define RAND(n) rand() % n
-#define WINDOW_WIDTH layer_get_bounds(window_layer).size.w
-#define WINDOW_HEIGHT layer_get_bounds(window_layer).size.h
 
-Layer* window_layer;
-Window* main_window;
 
 typedef struct Vector2_S {
    double x, y;  
@@ -17,6 +12,9 @@ typedef struct Player_S {
     double slowdown_speed;
     size_t score, lives;
 } Player;
+
+
+static Player* player;
 
 void game_init(Layer* layer, Window* window);
 void game_update();
