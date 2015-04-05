@@ -74,19 +74,33 @@ void game_init(Layer* layer, Window* window) {
     window_layer = layer;
     main_window = window;
 	window_set_background_color(main_window, GColorClear);
+    
     create_player();
     app_timer_register(DT_MS, game_update, NULL);
     accel_data_service_subscribe(0, NULL);
 }
 
+void bounds_check(Player* p) {
+    GRect bounds = layer_get_bounds(window_layer);
+    if(p->pos.x > (bounds.size.w - 5))
+        p->pos.x = bounds.size.w - 5;
+    else if(p->pos.y > (bounds.size.h - 5))
+        p->pos.y = bounds.size.h - 5;
+    else if(p->pos.x < 5)
+        p->pos.x = 5;
+    else if(p->pos.y < 5)
+        p->pos.y = 5;
+}
 
 void game_update() {
     player_update(player);
     layer_mark_dirty(window_layer);
     app_timer_register(DT_MS, game_update, NULL);
+    
     AccelData data;
     get_accel_data(&data);
     apply_change(player, data);
+    bounds_check(player);
     #ifdef DEBUG
     APP_LOG(APP_LOG_LEVEL_INFO, "X: %d Y: %d Z: %d", data->x, data->y, data->z);
     #endif 
